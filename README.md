@@ -3,4 +3,5 @@ A script to download Rinnegatamante's database at once.(http://vitadb.rinnegatam
 
 # Instructions
 For the script to work you need the jq command-line JSON processor available at https://github.com/stedolan/jq
+
 You can get it from your package manager.
