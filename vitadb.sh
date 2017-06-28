@@ -36,7 +36,7 @@ elif [ $a == p ]; then
     jq -r '.[$i | tonumber] | "\(.url)"' db.json | xargs wget -O ${filename// /_}
   done
   jq -r '.[0] | "\(.name)_\(.version)"' db.json >> log.txt
-  rm pg/db.json
+  rm db.json
 else
   echo "EXITING"
   exit;
