@@ -10,17 +10,18 @@ if [ $a == h ]; then
   echo -e "Where do you want the dl to stop? \nSTART COUNTING FROM 0!!"
   echo "Waiting for input"
   read x
-  curl -s https://rinnegatamante.it/vitadb/list_hbs_json.php >> db.json
+  mkdir hb
+  curl -s https://rinnegatamante.it/vitadb/list_hbs_json.php >> hb/db.json
   for (( i=0; i<=$x; i++ )); do
-    filename=$(jq --arg i $i -r '.[$i | tonumber] | "\(.name)_\(.version)"' db.json)
-    data=$(jq --arg i $i -r '.[$i | tonumber] | "\(.data)"' db.json)
+    filename=$(jq --arg i $i -r '.[$i | tonumber] | "\(.name)_\(.version)"' hb/db.json)
+    data=$(jq --arg i $i -r '.[$i | tonumber] | "\(.data)"' hb/db.json)
     if [ "$data" != "" ]; then
       wget -O data${filename// /_} $data
     fi
-    jq --arg i $i -r '.[$i | tonumber] | "\(.url)"' db.json | xargs wget -O ${filename// /_}
+    jq --arg i $i -r '.[$i | tonumber] | "\(.url)"' hb/db.json | xargs wget -O ${filename// /_}
   done
-  jq -r '.[0] | "\(.name)_\(.version)"' db.json > log.txt
-  rm db.json
+  jq -r '.[0] | "\(.name)_\(.version)"' hb/db.json > log.txt
+  rm hb/db.json
 elif [ $a == p ]; then
   n=$(curl -s https://rinnegatamante.it/vitadb/list_plugins_json.php | jq -r 'keys' | tail -n 2 | sed -n 1p)
   echo "Currenty in the db there are" $n "Plugins"
@@ -30,13 +31,14 @@ elif [ $a == p ]; then
   echo -e "Where do you want the dl to stop? \nSTART COUNTING FROM 0"
   echo "Waiting for input"
   read x
-  curl -s https://rinnegatamante.it/vitadb/list_plugins_json.php >> db.json
+  mkdir pg
+  curl -s https://rinnegatamante.it/vitadb/list_plugins_json.php >> pg/db.json
   for (( i=0; i<=$x; i++ )); do
-    filename=$(jq -r '.[$i | tonumber] | "\(.name)_\(.version)"' db.json)
-    jq -r '.[$i | tonumber] | "\(.url)"' db.json | xargs wget -O ${filename// /_}
+    filename=$(jq -r '.[$i | tonumber] | "\(.name)_\(.version)"' pg/db.json)
+    jq -r '.[$i | tonumber] | "\(.url)"' pg/db.json | xargs wget -O ${filename// /_}
   done
-  jq -r '.[0] | "\(.name)_\(.version)"' db.json >> log.txt
-  rm db.json
+  jq -r '.[0] | "\(.name)_\(.version)"' pg/db.json >> log.txt
+  rm pg/db.json
 else
   echo "EXITING"
   exit;
