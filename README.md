@@ -11,4 +11,4 @@ It is recommended to make 2 folders for your homebrews and plugins.The script wi
 # NOTES
 I know this script is inefficient so i welcome anyone with some good ideas.
 In the near future i might add the ability to continue the download from the last file you got without prompting the user for input.
-Also the ability to autocreate the folders.(xD)
+~~Also the ability to autocreate the folders.(xD)
