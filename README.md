@@ -6,7 +6,7 @@ For the script to work you need the jq command-line JSON processor available at 
 
 You can get it from your package manager.
 
-It is recommended to make 2 folders for your homebrews and plugins.The script will save all the files to the current working dir.
+The script autocreates folders automatically and saves files there.
 
 # NOTES
 I know this script is inefficient so i welcome anyone with some good ideas.
